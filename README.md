@@ -1,1 +1,1 @@
-Will be avalible soon.
+Will be available soon.
