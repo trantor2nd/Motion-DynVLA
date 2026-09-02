@@ -1,6 +1,6 @@
 # Motion-DynVLA
 
-Motion Dynamics Learning for Few-Shot Embodied Adaptation on NVIDIA GR00T N1.6.
+Motion Dynamics Learning for Few-Shot Embodied Adaptation (ICML 2026 Poster)
 
 [![Hugging Face weights](https://img.shields.io/badge/%F0%9F%A4%97_Hugging_Face-Weights-FFD21E)](https://huggingface.co/trantor2nd/Motion-DynVLA)
 [![Paper PDF](https://img.shields.io/badge/Paper-PDF-B31B1B?logo=adobeacrobatreader&logoColor=white)](paper/Motion-DynVLA.pdf)
