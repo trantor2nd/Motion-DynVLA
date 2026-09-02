@@ -2,7 +2,8 @@
 
 Motion Dynamics Learning for Few-Shot Embodied Adaptation on NVIDIA GR00T N1.6.
 
-[Public model weights](https://huggingface.co/trantor2nd/Motion-DynVLA)
+[![Hugging Face weights](https://img.shields.io/badge/%F0%9F%A4%97_Hugging_Face-Weights-FFD21E)](https://huggingface.co/trantor2nd/Motion-DynVLA)
+[![Paper PDF](https://img.shields.io/badge/Paper-PDF-B31B1B?logo=adobeacrobatreader&logoColor=white)](paper/Motion-DynVLA.pdf)
 
 Motion-DynVLA equips a pretrained vision-language-action model with an explicit motion dynamics module and a reusable Dynamics Bank. The model first learns motion structure from source-domain trajectories and then adapts to a new task from only 20 demonstrations.
 
@@ -48,6 +49,7 @@ scripts/eval                  LIBERO evaluation tools
 scripts/analyze_dynvla_bank_prototypes.py
 scripts/analyze_dynvla_bank_usage.py
 tests/gr00t/model/test_dynvla_n1d6.py
+paper/Motion-DynVLA.pdf    Paper manuscript
 ```
 
 ## Environment
@@ -144,7 +146,7 @@ They report prototype drift, retrieval entropy, effective prototype count, top1 
 
 ## Acknowledgements
 
-This project builds on [NVIDIA Isaac-GR00T](https://github.com/NVIDIA/Isaac-GR00T), [GR00T N1.6](https://huggingface.co/nvidia/GR00T-N1.6-3B), [LIBERO](https://github.com/Lifelong-Robot-Learning/LIBERO) and [RoboTwin](https://github.com/robotwin-Platform/RoboTwin).
+This project builds on [NVIDIA Isaac-GR00T](https://github.com/NVIDIA/Isaac-GR00T), [GR00T N1.6](https://huggingface.co/nvidia/GR00T-N1.6-3B) and [LIBERO](https://github.com/Lifelong-Robot-Learning/LIBERO).
 
 ## License
 
