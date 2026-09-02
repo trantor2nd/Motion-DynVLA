@@ -1,0 +1,12 @@
+task_name: adjust_bottle
+task_config: demo_clean
+ckpt_setting: gr00t_n16_target20
+policy_name: examples.RoboTwin.model2robotwin_interface
+instruction_type: unseen
+seed: 0
+host: 127.0.0.1
+port: 5694
+execution_horizon: 8
+timeout_ms: 180000
+eval_episodes: 1
+eval_video_log: false

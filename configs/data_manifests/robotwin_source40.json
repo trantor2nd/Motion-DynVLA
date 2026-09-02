@@ -1,0 +1,202 @@
+[
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/beat_block_hammer",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/blocks_ranking_rgb",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/blocks_ranking_size",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/click_alarmclock",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/dump_bin_bigbin",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/grab_roller",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/handover_block",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/handover_mic",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/lift_pot",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/move_can_pot",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/move_pillbottle_pad",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/move_playingcard_away",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/open_laptop",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/open_microwave",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/pick_diverse_bottles",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/pick_dual_bottles",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_a2b_right",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_bread_basket",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_bread_skillet",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_burger_fries",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_cans_plasticbox",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_container_plate",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_dual_shoes",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_empty_cup",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_mouse_pad",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_object_basket",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_object_scale",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_object_stand",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/place_shoe",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/press_stapler",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/put_bottles_dustbin",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/put_object_cabinet",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/scan_object",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/shake_bottle",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/shake_bottle_horizontally",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/stack_blocks_three",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/stack_bowls_three",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/stack_bowls_two",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/stamp_seal",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  },
+  {
+    "dataset_path": "/mnt/hdd/hesibo/motion_dynvla/data/robotwin/Clean/turn_switch",
+    "embodiment_tag": "new_embodiment",
+    "mix_ratio": 1.0
+  }
+]
