@@ -7,15 +7,12 @@ Motion Dynamics Learning for Few-Shot Embodied Adaptation (ICML 2026 Poster)
 
 Motion-DynVLA equips a pretrained vision-language-action model with an explicit motion dynamics module and a reusable Dynamics Bank. The model first learns motion structure from source-domain trajectories and then adapts to a new task from only 20 demonstrations.
 
-## Highlights
+## Update
 
 - Built on the full NVIDIA GR00T N1.6 pretrained VLA and action expert
-- Adds midpoint motion identification without replacing pretrained action layers
 - Uses a learnable bank of 1024 motion prototypes
 - Supports source-domain pretraining followed by fixed 20-demonstration adaptation
 - Includes fixed LIBERO data manifests, training entry points and paired evaluation tools
-- Includes frozen, random initialization and disabled-bank ablations
-- Includes auditable prototype drift and retrieval usage diagnostics
 
 ## Method
 
@@ -35,8 +32,6 @@ The visual-language backbone remains frozen. The pretrained action encoder, DiT 
 | --- | --- |
 | `libero-target20` on LIBERO Long | 428 successes in 500 fixed episodes (85.6%) |
 
-All comparisons use paired initial states or paired seeds. The repository contains deterministic manifests and resumable evaluators for reproducing the protocol.
-
 ## Repository layout
 
 ```text
@@ -45,8 +40,6 @@ examples/LIBERO              LIBERO modality configuration
 gr00t/model/modules           Motion dynamics and Dynamics Bank modules
 scripts/run_dynvla_stage.sh   Three-stage training entry point
 scripts/eval                  LIBERO evaluation tools
-scripts/analyze_dynvla_bank_prototypes.py
-scripts/analyze_dynvla_bank_usage.py
 tests/gr00t/model/test_dynvla_n1d6.py
 paper/Motion-DynVLA.pdf    Paper manuscript
 ```
@@ -133,17 +126,6 @@ bash scripts/eval/run_libero_gr00t.sh \
   "$MOTION_DYNVLA_ROOT/checkpoints/Motion-DynVLA/libero-target20" \
   0 5562 0 10 50 0 libero_target20
 ```
-
-## Dynamics Bank diagnostics
-
-The repository provides two no-weight-save diagnostics.
-
-```bash
-python scripts/analyze_dynvla_bank_prototypes.py --help
-python scripts/analyze_dynvla_bank_usage.py --help
-```
-
-They report prototype drift, retrieval entropy, effective prototype count, top1 usage, unused prototypes and concentration statistics.
 
 ## Acknowledgements
 
