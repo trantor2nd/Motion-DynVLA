@@ -33,7 +33,7 @@ The visual-language backbone remains frozen. The pretrained action encoder, DiT 
 
 | Setting | Result |
 | --- | --- |
-| LIBERO with 20 demonstrations per task | 85.6 percent success over 500 fixed episodes |
+| `libero-target20` on LIBERO Long | 428 successes in 500 fixed episodes (85.6%) |
 | LIBERO gain from the pretrained bank over random initialization | 3.6 percentage points |
 
 All comparisons use paired initial states or paired seeds. The repository contains deterministic manifests and resumable evaluators for reproducing the protocol.
@@ -66,35 +66,43 @@ Flash Attention    2.7.4.post1
 
 Flash Attention is enabled. The project lock file installs the official prebuilt wheel and does not compile Flash Attention online.
 
-Prepare a project root and place this repository under `code/DynVLA-GR00T`.
+For a fresh checkout, the commands below create the directory layout used by the launchers on Linux.
 
 ```bash
-export MOTION_DYNVLA_ROOT=/path/to/motion_dynvla
+export MOTION_DYNVLA_ROOT="${MOTION_DYNVLA_ROOT:-$HOME/motion_dynvla}"
+mkdir -p "$MOTION_DYNVLA_ROOT/code" "$MOTION_DYNVLA_ROOT/envs"
+git clone https://github.com/trantor2nd/Motion-DynVLA.git "$MOTION_DYNVLA_ROOT/code/DynVLA-GR00T"
 cd "$MOTION_DYNVLA_ROOT/code/DynVLA-GR00T"
-uv sync --frozen --no-build-package flash-attn
-python scripts/verify_dynvla_gr00t_n16_env.py
+export UV_PROJECT_ENVIRONMENT="$MOTION_DYNVLA_ROOT/envs/gr00t_n16"
+uv sync --frozen --python 3.10 --no-build-package flash-attn
+"$UV_PROJECT_ENVIRONMENT/bin/python" scripts/verify_dynvla_gr00t_n16_env.py
 ```
 
 The benchmark simulators and converted LeRobot datasets should remain outside the Git repository under the project root.
 
 ## Model weights
 
-The public Hugging Face repository provides two inference-ready checkpoints.
+Both downloads contain the full DynVLA policy, including the GR00T action expert and the Dynamics Bank. Choose the checkpoint for the stage you want to run.
 
-```text
-libero-source       Source-domain LIBERO checkpoint at step 28000
-libero-target20     LIBERO checkpoint adapted with 20 demonstrations per task
-```
+| Checkpoint | How it was trained | When to use it |
+| --- | --- | --- |
+| [`libero-source`](https://huggingface.co/trantor2nd/Motion-DynVLA/tree/main/libero-source) | Starting from NVIDIA GR00T N1.6, the dynamics modules were warmed up for 2,000 steps on LIBERO Spatial, Object and Goal (30 source tasks). The action expert and dynamics modules then trained jointly on the same tasks for 28,000 steps. | Start a new adaptation run with the learned Dynamics Bank, or evaluate the policy before target adaptation. |
+| [`libero-target20`](https://huggingface.co/trantor2nd/Motion-DynVLA/tree/main/libero-target20) | Starting from `libero-source`, the policy was fine-tuned for 30,000 steps on LIBERO Long (`libero_10`). Each of the 10 target tasks contributed 20 fixed demonstrations, for 200 in total. | Reproduce the reported 85.6% success rate on LIBERO Long. |
 
-Download one checkpoint with `huggingface_hub`.
+The 200 target demonstrations enter our training pipeline only during target adaptation. See the [source task manifest](configs/data_manifests/libero_source30.json) and the [fixed target episode list](configs/data_manifests/libero_target10_20shot.json).
+
+Download the evaluation checkpoint with `huggingface_hub` in the configured project environment.
 
 ```python
+import os
+from pathlib import Path
+
 from huggingface_hub import snapshot_download
 
 snapshot_download(
     repo_id="trantor2nd/Motion-DynVLA",
     allow_patterns=["libero-target20/*"],
-    local_dir="./checkpoints/Motion-DynVLA",
+    local_dir=Path(os.environ["MOTION_DYNVLA_ROOT"]) / "checkpoints" / "Motion-DynVLA",
 )
 ```
 
@@ -102,13 +110,7 @@ Each published checkpoint contains the model shards, model index, processor conf
 
 ## Training
 
-Set the project root before launching a stage.
-
-```bash
-export MOTION_DYNVLA_ROOT=/path/to/motion_dynvla
-```
-
-Train the LIBERO source model and then adapt it with 20 demonstrations.
+Use the environment above and prepare the [LIBERO datasets](examples/LIBERO/README.md). Place the NVIDIA base checkpoint under `$MOTION_DYNVLA_ROOT/models/GR00T-N1.6-3B`. Run the three stages in sequence to train both released policies.
 
 ```bash
 bash scripts/run_dynvla_stage.sh libero source_warmup \
@@ -125,11 +127,11 @@ Each formal run uses one GPU. Independent runs can be assigned to different GPUs
 
 ## Evaluation
 
-Evaluate a LIBERO checkpoint.
+With the LIBERO simulator installed under `$MOTION_DYNVLA_ROOT/third_party/LIBERO` and its Python environment at `$MOTION_DYNVLA_ROOT/envs/libero`, evaluate the downloaded `libero-target20` policy on all 10 tasks with 50 initial states per task.
 
 ```bash
 bash scripts/eval/run_libero_gr00t.sh \
-  "$MOTION_DYNVLA_ROOT/runs/gr00t_n16/dynvla_gr00t_n16_libero_target20_final" \
+  "$MOTION_DYNVLA_ROOT/checkpoints/Motion-DynVLA/libero-target20" \
   0 5562 0 10 50 0 libero_target20
 ```
 

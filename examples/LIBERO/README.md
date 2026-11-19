@@ -1,142 +1,27 @@
-# LIBERO
+# LIBERO data for Motion-DynVLA
 
-Benchmark for studying knowledge transfer in lifelong robot learning. Includes multiple suites: **Spatial** (spatial reasoning), **Object** (object generalization), **Goal** (goal-conditioned learning), and **10 Long** (long-horizon multi-step tasks). Provides RGB images, proprioception data, and language task specifications.
+The source policy trains on 30 tasks across LIBERO Spatial, Object and Goal. The target policy adapts to LIBERO Long using 20 demonstrations per task. The 500 evaluation episodes are simulator rollouts from 50 fixed initial states per target task.
 
-For more information, see the [official website](https://libero-project.github.io/main.html).
+## Training data
 
----
+The launchers expect the converted LeRobot datasets under `$MOTION_DYNVLA_ROOT/data/libero`. Each directory keeps its own `meta`, `data` and `videos` files.
 
-# LIBERO evaluation benchmark result
+| Stage | Dataset directory |
+| --- | --- |
+| Source | `libero_spatial_no_noops_1.0.0_lerobot` |
+| Source | `libero_object_no_noops_1.0.0_lerobot` |
+| Source | `libero_goal_no_noops_1.0.0_lerobot` |
+| Target | `libero_10_no_noops_1.0.0_lerobot` |
 
-> **Note:** The full task list is attached at the end of this document.
+The [source manifest](../../configs/data_manifests/libero_source30.json) excludes episode 82 of LIBERO Goal. The [target manifest](../../configs/data_manifests/libero_target10_20shot.json) lists the 200 demonstrations used for adaptation. Set each `dataset_path` in these two files to the absolute path of the matching local dataset and keep the episode selections intact.
 
-| Task      | Success rate       | max_steps | grad_accum_steps | batch_size |
-|-----------|--------------------|-----------|------------------|------------|
-| Spatial   | 195/200 (97.65%)        | 20K       | 1                | 640        |
-| Goal      | 195/200 (97.5%)        | 20K       | 1                | 640        |
-| Object    | 197/200 (98.45%)        | 20K       | 1                | 640        |
-| 10 (Long) | 189/200 (94.35%)        | 20K       | 1                | 640        |
+The [LIBERO training configuration](dynvla_libero_config.py) uses the camera keys `primary_image` and `wrist_image`. Check these names against the video entries in each converted dataset's `meta/modality.json`.
 
-# Fine-tune LIBERO 10 (long)
+See [Training](../../README.md#training) for the three training stages and [Evaluation](../../README.md#evaluation) to evaluate the released target policy.
 
-To reproduce our finetune results, use the following commands to setup dataset and launch finetune experiments. Please remember to set `WANDB_API_KEY` since `--use-wandb` is turned on by default. If you don't have a WANDB account, please remove this argument:
+## Task list
 
-```bash
-huggingface-cli download \
-    --repo-type dataset IPEC-COMMUNITY/libero_10_no_noops_1.0.0_lerobot \
-    --local-dir examples/LIBERO/libero_10_no_noops_1.0.0_lerobot/
-
-# Copy the patches and run the finetune script
-cp -r examples/LIBERO/modality.json examples/LIBERO/libero_10_no_noops_1.0.0_lerobot/meta/
-```
-
-Run the shared finetune launcher directly:
-```bash
-NUM_GPUS=8 MAX_STEPS=20000 GLOBAL_BATCH_SIZE=640 SAVE_STEPS=1000 uv run bash examples/finetune.sh \
-    --base-model-path nvidia/GR00T-N1.6-3B \
-    --dataset-path examples/LIBERO/libero_10_no_noops_1.0.0_lerobot/ \
-    --embodiment-tag LIBERO_PANDA \
-    --output-dir /tmp/libero_10 \
-    --state-dropout-prob 0.8
-```
-
-# Fine-tune LIBERO goal
-
-```bash
-huggingface-cli download \
-    --repo-type dataset IPEC-COMMUNITY/libero_goal_no_noops_1.0.0_lerobot \
-    --local-dir examples/LIBERO/libero_goal_no_noops_1.0.0_lerobot/
-
-# Copy the patches and run the finetune script
-cp -r examples/LIBERO/modality.json examples/LIBERO/libero_goal_no_noops_1.0.0_lerobot/meta/
-## This is a patch for one of the episode where the image seems to be corrupted.
-cp examples/LIBERO/patches/episode_000082.mp4 examples/LIBERO/libero_goal_no_noops_1.0.0_lerobot/videos/chunk-000/observation.images.wrist_image/
-```
-
-Run the shared finetune launcher directly:
-```bash
-NUM_GPUS=8 MAX_STEPS=20000 GLOBAL_BATCH_SIZE=640 SAVE_STEPS=1000 uv run bash examples/finetune.sh \
-    --base-model-path nvidia/GR00T-N1.6-3B \
-    --dataset-path examples/LIBERO/libero_goal_no_noops_1.0.0_lerobot/ \
-    --embodiment-tag LIBERO_PANDA \
-    --output-dir /tmp/libero_goal
-```
-
-# Fine-tune LIBERO object
-
-```bash
-huggingface-cli download \
-    --repo-type dataset IPEC-COMMUNITY/libero_object_no_noops_1.0.0_lerobot \
-    --local-dir examples/LIBERO/libero_object_no_noops_1.0.0_lerobot/
-
-# Copy the patches and run the finetune script
-cp -r examples/LIBERO/modality.json examples/LIBERO/libero_object_no_noops_1.0.0_lerobot/meta/
-```
-
-Run the shared finetune launcher directly:
-```bash
-NUM_GPUS=8 MAX_STEPS=20000 GLOBAL_BATCH_SIZE=640 SAVE_STEPS=1000 uv run bash examples/finetune.sh \
-    --base-model-path nvidia/GR00T-N1.6-3B \
-    --dataset-path examples/LIBERO/libero_object_no_noops_1.0.0_lerobot/ \
-    --embodiment-tag LIBERO_PANDA \
-    --output-dir /tmp/libero_object
-```
-
-# Fine-tune LIBERO spatial
-
-```bash
-huggingface-cli download \
-    --repo-type dataset IPEC-COMMUNITY/libero_spatial_no_noops_1.0.0_lerobot \
-    --local-dir examples/LIBERO/libero_spatial_no_noops_1.0.0_lerobot/
-
-# Copy the patches and run the finetune script
-cp -r examples/LIBERO/modality.json examples/LIBERO/libero_spatial_no_noops_1.0.0_lerobot/meta/
-```
-
-Run the shared finetune launcher directly:
-```bash
-NUM_GPUS=8 MAX_STEPS=20000 GLOBAL_BATCH_SIZE=640 SAVE_STEPS=1000 uv run bash examples/finetune.sh \
-    --base-model-path nvidia/GR00T-N1.6-3B \
-    --dataset-path examples/LIBERO/libero_spatial_no_noops_1.0.0_lerobot/ \
-    --embodiment-tag LIBERO_PANDA \
-    --output-dir /tmp/libero_spatial
-```
-
-# Evaluate checkpoint
-
-First, setup the evaluation simulation environment. This only needs to run once for each simulation benchmark. After it's done, we only need to launch server and client.
-
-```bash
-sudo apt update
-sudo apt install libegl1-mesa-dev libglu1-mesa
-bash gr00t/eval/sim/LIBERO/setup_libero.sh
-```
-
-Then, run client server evaluation under the project root directory in separate terminals:
-
-**Terminal 1 - Server:**
-```bash
-uv run python gr00t/eval/run_gr00t_server.py \
-    --model-path /tmp/libero_spatial/checkpoint-20000/ \
-    --embodiment-tag LIBERO_PANDA \
-    --use-sim-policy-wrapper
-```
-
-**Terminal 2 - Client:**
-```bash
-gr00t/eval/sim/LIBERO/libero_uv/.venv/bin/python gr00t/eval/rollout_policy.py \
-    --n_episodes 10 \
-    --policy_client_host 127.0.0.1 \
-    --policy_client_port 5555 \
-    --max_episode_steps=720 \
-    --env_name libero_sim/KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it \
-    --n_action_steps 8 \
-    --n_envs 5
-```
-
-# Full task list
-
-## Libero 10 (Long)
+### LIBERO 10 (Long)
 - `libero_sim/LIVING_ROOM_SCENE2_put_both_the_alphabet_soup_and_the_tomato_sauce_in_the_basket`
 - `libero_sim/LIVING_ROOM_SCENE2_put_both_the_cream_cheese_box_and_the_butter_in_the_basket`
 - `libero_sim/KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it`
@@ -148,7 +33,7 @@ gr00t/eval/sim/LIBERO/libero_uv/.venv/bin/python gr00t/eval/rollout_policy.py \
 - `libero_sim/KITCHEN_SCENE8_put_both_moka_pots_on_the_stove`
 - `libero_sim/KITCHEN_SCENE6_put_the_yellow_and_white_mug_in_the_microwave_and_close_it`
 
-## Libero Goal
+### LIBERO Goal
 - `libero_sim/open_the_middle_drawer_of_the_cabinet`
 - `libero_sim/put_the_bowl_on_the_stove`
 - `libero_sim/put_the_wine_bottle_on_top_of_the_cabinet`
@@ -160,7 +45,7 @@ gr00t/eval/sim/LIBERO/libero_uv/.venv/bin/python gr00t/eval/rollout_policy.py \
 - `libero_sim/put_the_bowl_on_the_plate`
 - `libero_sim/put_the_wine_bottle_on_the_rack`
 
-## Libero Object
+### LIBERO Object
 - `libero_sim/pick_up_the_alphabet_soup_and_place_it_in_the_basket`
 - `libero_sim/pick_up_the_cream_cheese_and_place_it_in_the_basket`
 - `libero_sim/pick_up_the_salad_dressing_and_place_it_in_the_basket`
@@ -172,7 +57,7 @@ gr00t/eval/sim/LIBERO/libero_uv/.venv/bin/python gr00t/eval/rollout_policy.py \
 - `libero_sim/pick_up_the_chocolate_pudding_and_place_it_in_the_basket`
 - `libero_sim/pick_up_the_orange_juice_and_place_it_in_the_basket`
 
-## Libero Spatial
+### LIBERO Spatial
 - `libero_sim/pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate`
 - `libero_sim/pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate`
 - `libero_sim/pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate`

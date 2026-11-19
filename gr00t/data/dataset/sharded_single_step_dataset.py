@@ -97,22 +97,6 @@ class ShardedSingleStepDataset(ShardedDataset):
         episode_sampling_rate: Fraction of episode timesteps to use (for efficiency)
         seed: Random seed for reproducible sharding and sampling
         allow_padding: Whether to allow padding of indices to valid range [0, max_length - 1]
-
-    Example:
-        >>> dataset = ShardedSingleStepDataset(
-        ...     dataset_path="/path/to/lerobot_dataset",
-        ...     embodiment_tag=EmbodimentTag.FRANKA,
-        ...     modality_configs={
-        ...         "video": ModalityConfig(delta_indices=[0], modality_keys=["front_cam"]),
-        ...         "state": ModalityConfig(delta_indices=[0], modality_keys=["joint_positions"]),
-        ...         "action": ModalityConfig(
-        ...             delta_indices=list(range(8)), modality_keys=["joint_velocities"]
-        ...         ),
-        ...     },
-        ...     shard_size=1024,
-        ...     episode_sampling_rate=0.1,
-        ... )
-        >>> shard_data = dataset.get_shard(0)  # Get first shard of processed timesteps
     """
 
     def __init__(

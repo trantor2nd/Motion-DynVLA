@@ -82,19 +82,6 @@ class LeRobotEpisodeLoader:
                          that specify temporal sampling and data keys to load
         video_backend: Video decoding backend ('torchcodec', 'decord', etc.)
         video_backend_kwargs: Additional arguments for the video backend
-
-    Example:
-        >>> loader = LeRobotEpisodeLoader(
-        ...     dataset_path="/path/to/lerobot_dataset",
-        ...     modality_configs={
-        ...         "video": ModalityConfig(delta_indices=[0], modality_keys=["front_cam"]),
-        ...         "state": ModalityConfig(delta_indices=[0], modality_keys=["joint_positions"]),
-        ...         "action": ModalityConfig(
-        ...             delta_indices=list(range(16)), modality_keys=["joint_velocities"]
-        ...         ),
-        ...     },
-        ... )
-        >>> episode_data = loader[0]  # Load first episode as DataFrame
     """
 
     def __init__(

@@ -23,21 +23,6 @@ class ReplayPolicy(BasePolicy):
 
     The policy expects observations with specific modalities (video, state, language)
     and returns actions in the format defined by the dataset's modality configuration.
-
-    Example:
-        >>> policy = ReplayPolicy(
-        ...     dataset_path="/path/to/lerobot_dataset",
-        ...     modality_configs={
-        ...         "video": ModalityConfig(delta_indices=[0], modality_keys=["front_cam"]),
-        ...         "state": ModalityConfig(delta_indices=[0], modality_keys=["joint_positions"]),
-        ...         "action": ModalityConfig(
-        ...             delta_indices=list(range(16)), modality_keys=["joint_velocities"]
-        ...         ),
-        ...         "language": ModalityConfig(delta_indices=[0], modality_keys=["task"]),
-        ...     },
-        ...     execution_horizon=16,
-        ... )
-        >>> action, info = policy.get_action(observation)
     """
 
     def __init__(
