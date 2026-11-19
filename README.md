@@ -34,7 +34,6 @@ The visual-language backbone remains frozen. The pretrained action encoder, DiT 
 | Setting | Result |
 | --- | --- |
 | `libero-target20` on LIBERO Long | 428 successes in 500 fixed episodes (85.6%) |
-| LIBERO gain from the pretrained bank over random initialization | 3.6 percentage points |
 
 All comparisons use paired initial states or paired seeds. The repository contains deterministic manifests and resumable evaluators for reproducing the protocol.
 
